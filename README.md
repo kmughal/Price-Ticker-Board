@@ -42,11 +42,26 @@ A real-time price tracking application built with React (TypeScript) and .NET. T
    ```bash
    npm start
    ```
+4. To run unit tests:
+   ```bash
+   npm test
+   ```
+
 
 ### Backend
-1. Navigate to the api directory
+1. Navigate to the api/PriceTrackerApi directory
 2. Install .NET SDK
 3. Run the application
+```bash
+    dotnet build 
+    dotnet run
+   ```
+5.  To run unit tests:
+```bash
+    cd api/PriceTrackerApi.UnitTests
+    dotnet build 
+    dotnet test
+   ```
 
 ## Potential Improvements
 

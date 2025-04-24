@@ -6,9 +6,9 @@ namespace PriceTrackerApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ItemsController(PriceUpdateService priceUpdateService) : ControllerBase
+public class ItemsController(IPriceUpdateService priceUpdateService) : ControllerBase
 {
-    private readonly PriceUpdateService _priceUpdateService = priceUpdateService;
+    private readonly IPriceUpdateService _priceUpdateService = priceUpdateService;
 
     [HttpGet]
     public ActionResult<IEnumerable<Item>> GetItems() => Ok(_priceUpdateService.GetItems());

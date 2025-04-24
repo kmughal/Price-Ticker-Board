@@ -5,24 +5,17 @@ using PriceTrackerApi.Models;
 
 namespace PriceTrackerApi.Services;
 
-public class PriceUpdateService : IHostedService, IDisposable
+public class PriceUpdateService(
+    IHubContext<PriceHub> hubContext,
+    ILogger<PriceUpdateService> logger) : IPriceUpdateService, IDisposable
 {
-    private readonly IHubContext<PriceHub> _hubContext;
-    private readonly ILogger<PriceUpdateService> _logger;
-    private readonly List<Item> _items;
+    private readonly IHubContext<PriceHub> _hubContext = hubContext;
+    private readonly ILogger<PriceUpdateService> _logger = logger;
+    private readonly List<Item> _items = InitializeItems();
     private readonly Random _random = new();
     private System.Timers.Timer? _timer;
     private bool _isSubscribed = false;
-    private readonly object _lock = new();
-
-    public PriceUpdateService(
-        IHubContext<PriceHub> hubContext,
-        ILogger<PriceUpdateService> logger)
-    {
-        _hubContext = hubContext;
-        _logger = logger;
-        _items = InitializeItems();
-    }
+    private readonly Lock _lock = new();
 
     public Task StartAsync(CancellationToken cancellationToken)
     {

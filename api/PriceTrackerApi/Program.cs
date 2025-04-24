@@ -25,8 +25,8 @@ builder.Services.AddCors(options =>
 });
 
 // Add Services
-builder.Services.AddSingleton<PriceUpdateService>();
-builder.Services.AddHostedService(sp => sp.GetRequiredService<PriceUpdateService>());
+builder.Services.AddSingleton<IPriceUpdateService, PriceUpdateService>();
+builder.Services.AddHostedService(sp => sp.GetRequiredService<IPriceUpdateService>());
 
 var app = builder.Build();
 
@@ -45,4 +45,4 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<PriceHub>("/priceHub");
 
-app.Run(); 
+app.Run();
